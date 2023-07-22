@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
  <head>
-     <title>Title Case</title>
+     <title>Get Even</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/nav.css">
   <link rel="stylesheet" href="css/forms.css">
   <style>
-    #output{
+    #container{
       border-radius: 5px;
       min-height: 40px;
       border: 1px solid black;
@@ -21,7 +21,7 @@
  </head>
  <body>
      <header>
-     <h1 class="page-header">Title Case</h1>
+     <h1 class="page-header">Get Even</h1>
         <nav class="topnav" id="myTopnav">
             <a href="index.html" class="active">Home</a>
             <a href="#">Link</a>
@@ -29,13 +29,12 @@
             <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
         </nav>
      </header>
-     
    <main class="wrapper">
   <h2 class="subheader">Place form code below:</h2>
-  
-  
-  <div id="output"> Output goes here</div>
-  <form method="post" action="" class="main-form">
+
+<div id="output"> 
+
+  <form method="get" action="" class="main-form">
 
     <div>
       <label for="input">First Name</label> <br>
@@ -46,39 +45,67 @@
       <input type="submit" id="submit">
     </div>
 
-
-   
   </form>
-    <h3>Page Origins</h3>
-    <p>The HTML/CSS comes from Sara Newman's Web Fundamentals class as taught at Seattle Central. This page provides a basis for students to build a responsive portal page.</p>
-    <p>The mobile navigation originates from <a href="https://www.w3schools.com/howto/howto_js_mobile_navbar.asp" target="_blank">W3Schools</a></p>
+
+  <div id="answer">  </div>
+
+</div>
+
+
+<script>
+ 
+  function getEven(num) {
+    if ( num % 2 == 0 ) {
+      return true;} 
+     else {
+      return false;
+    }
+  }
+
+  const queryString = window.location.search;
+  console.log(queryString);
+  const urlParams = new URLSearchParams(queryString);
+
+    if (queryString.length > 0) {//data submiited
+
+      let myOutput = `<div id="container">`;
+
+      if (urlParams.has("input")) {
+          let myInput = urlParams.get("input")
+          
+        if (getEven(myInput)) {
+          myOutput += `<p> You typed <b> ${myInput} </b> and its an even number</p>`;
+        }
+          else {
+            myOutput += `<p> You typed <b> ${myInput} </b> and its an odd number</p>`
+          }
+      }
+
+      myOutput += `<p><a href="index.html">Clear</a></p>`;
+      myOutput += `</di>`;
+      document.querySelector("#output").innerHTML = myOutput;
+           
+    }    
+</script>
+
     <footer>
+      <p><small>&copy; 2021-<span id="this-year"></span> by
+        YOUR NAME HERE, All Rights Reserved ~
+        <a id="html-checker" href="#" target="_blank">Check HTML</a> ~
+        <a id="css-checker" href="#" target="_blank">Check CSS</a></small>
+      </p>
 
-  <p><small>&copy; 2021-<span id="this-year"></span> by 
-      YOUR NAME HERE, All Rights Reserved ~ 
-      <a id="html-checker" href="#" target="_blank">Check HTML</a> ~ 
-      <a id="css-checker" href="#" target="_blank">Check CSS</a></small>
-  </p>
+      <h3>Page Origins</h3>
+
+      <p>The HTML/CSS comes from Sara Newman's Web Fundamentals class as taught at Seattle Central. This page provides a basis
+        for students to build a responsive portal page.
+      </p>
+
+      <p>The mobile navigation originates from <a href="https://www.w3schools.com/howto/howto_js_mobile_navbar.asp"
+        target="_blank">W3Schools</a>
+      </p>
     </footer>
-  </main>
+   </main>
   <script src="js/main.js"></script>   
-  
-  <script>
-  function titleCase(str){
-   return str = str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
-  };
-   const mySubmmit = document.querySelector("#submit")
-   console.log(mySubmmit);
-
-   mySubmmit.addEventListener("click",function(ev){
-  ev.preventDefault();
-     const myInput = document.querySelector("#input")
-     const myOutput = document.querySelector("#output")
-     myOutput.innerHTML = titleCase(myInput.value);
-    //  alert(myInput.value);
-
-   });
-  </script>
-
- </body>
+ </body> 
 </html>
